@@ -1,0 +1,21 @@
+version: "2.0"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      -  /usr/src/app/node_modules
+      - ./frontend:/usr/src/app
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+    ports:
+      - "3001:3001"
+    volumes:
+      -  /usr/src/app/node_modules
+      - ./backend:/usr/src/app
