@@ -92,6 +92,11 @@ componentDidMount() {
       })}
       {/* <Asset src={material.src}/> */}
         <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="5 5 1" position="0 1 -5"/>
+        
+        <Entity primitive="a-camera">
+          <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+        </Entity>
+
     </Scene>
     );
   }
