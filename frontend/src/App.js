@@ -19,7 +19,6 @@ import axios from 'axios';
 function App() {
   return (
     <div className="App">
-      <Header />
       <VRScene />
     </div>
   );
@@ -30,6 +29,7 @@ class VRScene extends React.Component {
 
   state = {
     images : [],
+    currentImage: '',
 }
 
 
@@ -37,18 +37,20 @@ componentDidMount() {
      this.interval = setInterval(() => {
       axios.get('http://localhost:3001/currentBase64')
       .then(res => {
-          console.log("recieveing image", res.data)
-
           const base64 =  'data:image/png;base64, ' + res.data;
           const shuldAppend = !this.state.images.includes(base64);
           if(shuldAppend){
             this.state.images.push(base64);
-            this.setState({images: [...this.state.images]})
+            console.log("changed ", base64);
+            this.setState({images: [...this.state.images], currentImage: base64})
 
           }
       })
      }, 3000); 
-     
+     const elem = document.getElementById('my-texture');
+     if(elem){
+       elem.src = this.state.currentImage;
+     }
     }
     componentWillUnmount() {
       clearInterval(this.interval);
@@ -59,24 +61,48 @@ componentDidMount() {
     return this.state.images[0] ? this.state.images[0] : "";
   }
 
+  getSrc = () => {
+    return this.state.images.length === 0 ? '' : this.state.images[this.state.images.length -1];
+  }
+
   render () {
     let material = {
       shader: 'flat',
-      src : this.currentImageSource
+      src : this.state.currentImage
   };
+    console.log("this is the rendered", this.state.currentImage)
     return (
 
+      // <div>
+      //   <img src={this.state.currentImage} />
+      // </div>
       <Scene>
-    
-      <a-assets>
-         <img id="my-texture" src></img> 
-         </a-assets>
-        <Entity geometry="primitive: box" material="src: #my-texture"/>
-
+      
+      {this.state.images.length === 0 ? '' : this.state.images.map((image, index) => {
+        return (
+          <a-assets key={index}>
+         <img id={index} src={image}></img> 
+        </a-assets>
+        )
+      })}
+      {/* <Asset src={material.src}/> */}
+        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="5 5 1"/>
     </Scene>
     );
   }
 }
 
+class Asset extends React.Component{
+
+
+  render(){
+    return(
+    <a-assets>
+          <img id="my-texture" src={this.props.src}></img> 
+    </a-assets>
+    );
+  }
+
+}
 
 export default App;
