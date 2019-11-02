@@ -45,6 +45,6 @@ COPY package*.json /usr/src/app/
 COPY . /usr/src/app
 
 
-EXPOSE 3000
+EXPOSE 7001
 #ENTRYPOINT ["dumb-init", "--"]
 CMD [ "npm","run","start:dev" ]
