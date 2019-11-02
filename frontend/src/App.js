@@ -15,6 +15,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';  
 
 
+export const BACKEND_IP = 'http://18.185.43.108:3001';
 
 function App() {
   return (
@@ -34,12 +35,12 @@ class VRScene extends React.Component {
 
 
 componentDidMount() {
-  axios.get('http://localhost:3001/initialize')
+  axios.get(`${BACKEND_IP}/initialize`)
       .then(res => {
           console.log(res);
   })
      this.interval = setInterval(() => {
-      axios.get('http://localhost:3001/currentBase64')
+      axios.get(`${BACKEND_IP}/currentBase64`)
       .then(res => {
           const base64 =  'data:image/png;base64, ' + res.data;
           const shuldAppend = !this.state.images.includes(base64);
@@ -90,7 +91,7 @@ componentDidMount() {
         )
       })}
       {/* <Asset src={material.src}/> */}
-        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="5 5 1"/>
+        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="5 5 1" position="0 1 -5"/>
     </Scene>
     );
   }
