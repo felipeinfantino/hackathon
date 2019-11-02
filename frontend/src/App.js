@@ -15,7 +15,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';  
 
 
-export const BACKEND_IP = 'http://backend:7001';
+export const BACKEND_IP = 'http://18.197.83.247:7001';
 
 function App() {
   return (
