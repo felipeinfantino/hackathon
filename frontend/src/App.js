@@ -34,6 +34,10 @@ class VRScene extends React.Component {
 
 
 componentDidMount() {
+  axios.get('http://localhost:3001/initialize')
+      .then(res => {
+          console.log(res);
+  })
      this.interval = setInterval(() => {
       axios.get('http://localhost:3001/currentBase64')
       .then(res => {
