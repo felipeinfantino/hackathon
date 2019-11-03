@@ -91,7 +91,7 @@ componentDidMount() {
         )
       })}
       {/* <Asset src={material.src}/> */}
-        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="7 5 1" position="0 1 -5"/>
+        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="9 7 1" position="0 1 -5"/>
         
         <Entity camera look-controls-z position="0 1.6 0"></Entity>
     </Scene>
