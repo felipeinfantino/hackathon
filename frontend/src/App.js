@@ -81,7 +81,7 @@ componentDidMount() {
       // <div>
       //   <img src={this.state.currentImage} />
       // </div>
-      <Scene>
+      <Scene background="color: black">
       
       {this.state.images.length === 0 ? '' : this.state.images.map((image, index) => {
         return (
@@ -91,10 +91,9 @@ componentDidMount() {
         )
       })}
       {/* <Asset src={material.src}/> */}
-        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="5 5 1" position="0 1 -5"/>
+        <Entity geometry="primitive: box" material={{ src: this.getSrc()}} scale="7 5 1" position="0 1 -5"/>
         
-        <Entity camera look-controls position="0 1.6 0"></Entity>
-
+        <Entity camera look-controls-z position="0 1.6 0"></Entity>
     </Scene>
     );
   }
